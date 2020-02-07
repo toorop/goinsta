@@ -178,6 +178,21 @@ func (img Images) GetBest() string {
 	return best
 }
 
+// GetLower returns the URL of the image with the lower quality.
+func (img Images) GetLower() string {
+	thumb := ""
+	//var mh, mw int
+	mh := 10000
+	mw := 10000
+	for _, v := range img.Versions {
+		if v.Width < mw || v.Height < mh {
+			thumb = v.URL
+			mh, mw = v.Height, v.Width
+		}
+	}
+	return thumb
+}
+
 // Candidate is something that I really have no idea what it is.
 type Candidate struct {
 	Width  int    `json:"width"`
