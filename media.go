@@ -261,7 +261,7 @@ func GetBest(obj interface{}) string {
 	return m.url
 }
 
-// GetLower returns best quality image or video.
+// GetLower returns lower quality image or video.
 //
 // Arguments can be []Video or []Candidate
 func GetLower(obj interface{}) string {
