@@ -261,6 +261,35 @@ func GetBest(obj interface{}) string {
 	return m.url
 }
 
+// GetLower returns best quality image or video.
+//
+// Arguments can be []Video or []Candidate
+func GetLower(obj interface{}) string {
+	m := bestMedia{}
+
+	switch t := obj.(type) {
+	// getting best video
+	case []Video:
+		for _, video := range t {
+			if m.w > video.Width && video.Height < m.h && video.URL != "" {
+				m.w = video.Width
+				m.h = video.Height
+				m.url = video.URL
+			}
+		}
+		// getting best image
+	case []Candidate:
+		for _, image := range t {
+			if m.w > image.Width && image.Height < m.h && image.URL != "" {
+				m.w = image.Width
+				m.h = image.Height
+				m.url = image.URL
+			}
+		}
+	}
+	return m.url
+}
+
 var rxpTags = regexp.MustCompile(`#\w+`)
 
 // Hashtags returns caption hashtags.
